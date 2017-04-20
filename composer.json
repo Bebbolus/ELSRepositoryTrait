@@ -1,0 +1,36 @@
+{
+    "name": "bebbolus/elsrepositorytrait",
+    "description": "PHP trait to manage the Laravel Entity on ElasticSearch via Elastiquent",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+      "elasticsearch",
+      "session",
+      "laravel",
+      "PHP",
+      "elastiquent",
+      "trait"
+    ],
+    "homepage": "https://github.com/Bebbolus/ELSRepositoryTrait",
+    "authors": [
+        {
+            "name": "Roberto Della Fornace",
+            "email": "lambis.net@gmail.com"
+        },
+        {
+            "name": "Andrea Sabbatini",
+            "email": "andrea.sabbatini.296@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+      "php": ">=5.6.4",
+      "laravel/framework": "5.*",
+      "elasticquent/elasticquent": "dev-master",
+    },
+    "autoload": {
+        "psr-4": {
+            "ELSRepositoryTrait\\": "src/"
+        }
+    }
+}
