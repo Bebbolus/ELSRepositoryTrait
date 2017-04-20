@@ -26,7 +26,7 @@
     "require": {
       "php": ">=5.6.4",
       "laravel/framework": "5.*",
-      "elasticquent/elasticquent": "dev-master"
+      "elasticquent/elasticquent":"dev-master"
     },
     "autoload": {
         "psr-4": {
