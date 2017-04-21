@@ -1,6 +1,6 @@
 <?php
 
-namespace Bebbolus\edm2package\Repositories\Support;
+namespace ELSRepositoryTrait;
 
 
 trait RepositoryTrait
