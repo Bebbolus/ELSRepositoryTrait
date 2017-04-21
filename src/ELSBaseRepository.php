@@ -9,11 +9,10 @@ use ElasticSessions\Exceptions\MoreEntityWithSameAttributeException;
 use ElasticSessions\Exceptions\NoOperationNeededException;
 use Elasticsearch\ClientBuilder;
 use Elasticsearch\Common\Exceptions\Missing404Exception;
-use ElsQueryBuilderTrait\ELSQueryBuilderTrait;
 
 class ELSBaseRepository
 {
-    use ELSQueryBuilderTrait;
+ use \ELSQueryBuilderTrait\ELSQueryBuilderTrait;
 
     private $index;
     private $type;
