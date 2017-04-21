@@ -9,11 +9,10 @@ use ElasticSessions\Exceptions\MoreEntityWithSameAttributeException;
 use ElasticSessions\Exceptions\NoOperationNeededException;
 use Elasticsearch\ClientBuilder;
 use Elasticsearch\Common\Exceptions\Missing404Exception;
-use ElsQueryBuilderTrait\ELSQueryBuilderTrait;
 
 class ELSBaseRepository
 {
-    use ELSQueryBuilderTrait;
+    use \ELSQueryBuilderTrait\ELSQueryBuilderTrait;
 
     private $index;
     private $type;
@@ -35,6 +34,8 @@ class ELSBaseRepository
         $this->isModel = $isModel;
     }
 
+
+
     public function find($id)
     {
         $params = [
@@ -42,6 +43,7 @@ class ELSBaseRepository
             'type' => $this->type,
             'id' => $id
         ];
+
         try{
             if($this->isModel)return $this->getClassInstance($this->client->get($params));
             else return $this->client->get($params);
@@ -292,7 +294,15 @@ class ELSBaseRepository
     {
         $params = $source['_source'];
         $params['id'] =$source['_id'];
-        return $this->model->forceFill($params);
+
+        if(!isset($params['password'])){
+            $result = $this->model->forceFill($params);
+        }else{
+            $result = $this->model->forceFill($params);
+            $this->model->forceSetPasswordAttribute($params['password']);
+        }
+        
+        return $result;
     }
 
     public function verifyUniqueKey($value, $id = '')
