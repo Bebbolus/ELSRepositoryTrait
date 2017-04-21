@@ -12,7 +12,9 @@ use Elasticsearch\Common\Exceptions\Missing404Exception;
 
 class ELSBaseRepository
 {
+
     use \ELSQueryBuilderTrait\ELSQueryBuilderTrait;
+
 
     private $index;
     private $type;
