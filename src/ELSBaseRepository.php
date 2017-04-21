@@ -35,8 +35,6 @@ class ELSBaseRepository
         $this->isModel = $isModel;
     }
 
-
-
     public function find($id)
     {
         $params = [
