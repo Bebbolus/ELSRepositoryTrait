@@ -89,9 +89,13 @@ trait RepositoryTrait
 
     public function update(array $attributes = [], array $options = [])
     {
+
         $attributes['updated_at'] = time();
+
         if(!isset($attributes['created_at'])) $attributes['created_at'] = time();
-        else $attributes['created_at'] = strtotime($attributes['created_at']);
+        else{
+            if(!is_int($attributes['created_at'])) $attributes['created_at'] = strtotime($attributes['created_at']);
+        }
         $this->repo->forceDestroy($this->getElsId());
         return $this->repo->indexWithId($this->getElsId(), $attributes);
     }
