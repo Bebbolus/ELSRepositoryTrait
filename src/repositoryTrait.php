@@ -90,16 +90,17 @@ trait RepositoryTrait
     public function update(array $attributes = [], array $options = [])
     {
 
-        $attributes['updated_at'] = time();
-
-        if(!isset($attributes['created_at'])) $attributes['created_at'] = time();
-        else{
-            if(!is_int($attributes['created_at'])) $attributes['created_at'] = strtotime($attributes['created_at']);
-        }
-        
         foreach ($attributes as $k=>$v){
-            $this->{$k} = $v;
+            $this->attributes[$k] = $v;
         }
+
+        $this->attributes['updated_at']  =time();
+
+        if(!isset($this->attributes['created_at'])) $this->attributes['created_at'] = time();
+        else{
+            if(!is_int($this->attributes['created_at'])) $this->attributes['created_at'] = strtotime($this->attributes['created_at']);
+        }
+
         $this->repo->forceDestroy($this->getElsId());
         return $this->repo->indexWithId($this->getElsId(), $this->getAttributes());
     }
