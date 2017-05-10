@@ -96,8 +96,12 @@ trait RepositoryTrait
         else{
             if(!is_int($attributes['created_at'])) $attributes['created_at'] = strtotime($attributes['created_at']);
         }
+        
+        foreach ($attributes as $k=>$v){
+            $this->{$k} = $v;
+        }
         $this->repo->forceDestroy($this->getElsId());
-        return $this->repo->indexWithId($this->getElsId(), $attributes);
+        return $this->repo->indexWithId($this->getElsId(), $this->getAttributes());
     }
 
     public function save(array $options = [])
