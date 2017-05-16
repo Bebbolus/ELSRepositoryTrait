@@ -37,6 +37,14 @@ class ELSBaseRepository
     }
 
 
+    public function addReservedKey($key)
+    {
+        if(!in_array($key, $this->reservedKey, true)){
+          return  array_push($this->reservedKey, $key);
+        }
+
+        return true;
+    }
 
     public function find($id)
     {
