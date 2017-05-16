@@ -3,16 +3,34 @@
 namespace ELSRepositoryTrait;
 
 
+use Bebbolus\edmelspackage\Models\User;
+
 trait RepositoryTrait
 {
     private $repo;
 
     function __construct()
     {
-        if (!isset($this->key)) $this->key  = 'code';
+
+        if (method_exists($this, 'getPrivateKey')) $this->key  = $this->getPrivateKey();
+        else {
+            if(!isset($this->key)) $this->key  = 'code';
+        }
+
+//        if($this instanceof User)dd($this);
+
+        if (method_exists($this, 'getReservedKey')) $this->reservedKey  = $this->getReservedKey();
+        else {
+            if(!isset($this->reservedKey)) $this->reservedKey  = [];
+        }
+
         parent::__construct();
         $this->repo = new ELSBaseRepository($this, $this->getTypeName(), $this->getIndexName(), $this->key);
+        foreach ($this->reservedKey as $key){
+            $this->repo->addReservedKey($key);
+        }
     }
+
 
     /*
      * PROPERTY RETRIEVE FUNCTION
