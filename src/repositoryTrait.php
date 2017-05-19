@@ -120,8 +120,14 @@ trait RepositoryTrait
         }
 
         $this->repo->forceDestroy($this->getElsId());
-        return $this->repo->indexWithId($this->getElsId(), $this->getAttributes());
+        try{
+            return $this->repo->indexWithId($this->getElsId(), $this->getAttributes());
+        }catch ( EntityNotCreatedException $e){
+            LOG::error('[ERROR] CANNOT RE-INDEX WITH ID THE FOLLOWING DOCS: '.PHP_EOL.json_encode($this->getAttributes()));
+            throw new EntityNotUpdatedException();
+        }
     }
+
 
     public function save(array $options = [])
     {
