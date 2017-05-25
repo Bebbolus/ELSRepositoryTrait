@@ -80,6 +80,12 @@ trait RepositoryTrait
     {
         return $this->repo->get($conditions, $requiredField, $page);
     }
+    
+    public function getActive($conditions = [], $requiredField = [], $page = 0)
+    {
+        $conditions['EDM_DELETED']=false;
+        return $this->repo->get($conditions, $requiredField, $page);
+    }
 
     public function getId($conditions = [], $requiredField = [])
     {
@@ -90,6 +96,12 @@ trait RepositoryTrait
     {
         return $this->repo->count($conditions, $requiredField);
     }
+    
+    public function countAcive($conditions = [], $requiredField = [])
+    {
+        $conditions['EDM_DELETED']=false;
+        return $this->repo->count($conditions, $requiredField);
+    }
 
     /*
      * CRUD FUNCTION
@@ -97,11 +109,13 @@ trait RepositoryTrait
 
     public function indexWithId($content)
     {
+        $content['EDM_DELETED']=false;
         return $this->repo->indexWithId($this->getElsId(), $content);
     }
 
     public function index($content)
     {
+        $content['EDM_DELETED']=false;
         return $this->repo->index($content);
     }
 
@@ -132,6 +146,12 @@ trait RepositoryTrait
     public function save(array $options = [])
     {
         return $this->repo->save();
+    }
+    
+    public function softDelete()
+    {
+        $this->setAttributes('EDM_DELETED',true);
+        return $this->save();
     }
 
     public function delete()
