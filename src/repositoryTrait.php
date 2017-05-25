@@ -83,7 +83,7 @@ trait RepositoryTrait
     
     public function getActive($conditions = [], $requiredField = [], $page = 0)
     {
-        $conditions['EDM_DELETED']=0;
+        $conditions['EDM_DELETED']='DISABLED';
         return $this->repo->get($conditions, $requiredField, $page);
     }
 
@@ -99,7 +99,7 @@ trait RepositoryTrait
     
     public function countAcive($conditions = [], $requiredField = [])
     {
-        $conditions['EDM_DELETED']=0;
+        $conditions['EDM_DELETED']='DISABLED';
         return $this->repo->count($conditions, $requiredField);
     }
 
@@ -109,13 +109,13 @@ trait RepositoryTrait
 
     public function indexWithId($content)
     {
-        $content['EDM_DELETED']=0;
+        $content['EDM_DELETED']='DISABLED';
         return $this->repo->indexWithId($this->getElsId(), $content);
     }
 
     public function index($content)
     {
-        $content['EDM_DELETED']=0;
+        $content['EDM_DELETED']='DISABLED';
         return $this->repo->index($content);
     }
 
@@ -150,7 +150,7 @@ trait RepositoryTrait
     
     public function softDelete()
     {
-        $this->setAttributes('EDM_DELETED',0);
+        $this->setAttributes('EDM_DELETED','ENABLED');
         return $this->save();
     }
 
